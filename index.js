@@ -5,32 +5,42 @@ const { uuid, hmacSha256, hikHeader, hikUrl } = require('./lib/util');
 
 
 class Hik {
+  /**
+   * init Hik
+   * @param {Object} config 配置
+   * @param {String} config.uri IP地址或者网址
+   * @param {Number} [config.port] 端口 80 or 443 可不填
+   * @param {Number} config.ak appKey
+   * @param {String} config.sk appSecret
+   */
   constructor(config) {
-    if (typeof config.url !== 'string') {
-      throw new Error('url is not null');
+    if (typeof config.uri !== 'string') {
+      throw new Error('uri is not null');
     }
-    if (typeof config.port !== 'number') {
-      throw new Error('port is not null');
-    }
-    if (typeof config.ak !== 'string' || typeof config.sk !== 'string') {
+    if (typeof config.ak !== 'number' || typeof config.sk !== 'string') {
       throw new Error('ak and sk is not null');
+    }
+    if (config.port) {
+      if (typeof config.port !== 'number') {
+        throw new Error('port is number');
+      }
+      this.port = config.port;
     }
     if (config.protocol) {
       if (!['http', 'htpps'].includes(config.protocol)) throw new Error('protocol is http or https');
     }
     this.uri = config.uri;
-    this.port = config.port;
     this.ak = config.ak;
     this.sk = config.sk;
     this.protocol = config.protocol || 'http';
-    this.url = `${this.protocol}://${this.uri}:${this.port}/artemis`;
+    this.url = `${this.protocol}://${this.uri}${this.port ? ':'+this.port : ''}/artemis`;
   }
 
   /**
    * 
    * @param {String} method 请求方式：GET/POST/PUT/PATCH/DELETE
    * @param {String} path 请求路径：eg /api/v1/oauth/token
-   * @param {Object} config 请求参数
+   * @param {Object} [config] 请求参数
    * @param {Object} config.headers 请求headers
    * @param {Object} config.params  `params` are the URL parameters to be sent with the request
    * @param {Object} config.data    `data` is the data to be sent as the request body
