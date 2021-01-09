@@ -46,7 +46,7 @@ class Hik {
    * @param {Object} config.data    `data` is the data to be sent as the request body
    * @param {String} config.data    syntax alternative to send data into the body
    */
-  async require(method, path, config= {}) {
+  async request(method, path, config= {}) {
 
     method = method.toUpperCase();
 
