@@ -1,6 +1,7 @@
 'use strict';
 
 const axios = require('axios');
+const moment = require('moment');
 const { uuid, hmacSha256, hikHeader, hikUrl } = require('./lib/util');
 
 
@@ -51,7 +52,7 @@ class Hik {
     method = method.toUpperCase();
 
     const url = `${this.url}${path}`;
-    const _url = hikUrl(url, {}, body);
+    const _url = hikUrl(url, config.params, config.data);
 
     let headers = {
       'X-Ca-Key': this.ak,
@@ -85,6 +86,7 @@ class Hik {
    */
   async access_token() {
     const { status, data: { code, msg, data } } = await this.request('POST', '/api/v1/oauth/token');
+    console.log('status', status);
     if (status !== 200) {
       throw new Error(`服务器出现了故障 status: ${status}`);
     }
