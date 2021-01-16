@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const moment = require('moment');
+const https = require('https');
 const { uuid, hmacSha256, hikHeader, hikUrl } = require('./lib/util');
 
 
@@ -28,7 +29,7 @@ class Hik {
       this.port = config.port;
     }
     if (config.protocol) {
-      if (!['http', 'htpps'].includes(config.protocol)) throw new Error('protocol is http or https');
+      if (!['http', 'https'].includes(config.protocol)) throw new Error('protocol is http or https');
     }
     this.uri = config.uri;
     this.ak = config.ak;
@@ -60,6 +61,8 @@ class Hik {
       'X-Ca-Nonce': uuid(true),
     };
     if (config.headers) headers = { ...headers, ...config.headers };
+    // 若是 443 基本是自签证书，需要忽略证书
+    if (this.protocol === 'https') config.httpsAgent = new https.Agent({ rejectUnauthorized: false });
     const { headers: _headers, 'X-Ca-Signature-Headers': signatureHeaders } = hikHeader(headers);
 
     headers['X-Ca-Signature-Headers'] = signatureHeaders;

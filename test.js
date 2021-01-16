@@ -5,8 +5,8 @@ const hik = require('./index');
     ak: 21955969,
     sk: '4dy8nTqcUKS2yHUhe957',
     uri: '10.0.18.51',
-    port: 80,
-    protocol: 'http',
+    port: 443,
+    protocol: 'https',
   });
 
   console.log('Hik', Hik);
