@@ -1,3 +1,5 @@
+'use strict';
+
 const hik = require('./index');
 
 (async () => {

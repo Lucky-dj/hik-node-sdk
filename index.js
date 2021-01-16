@@ -56,8 +56,10 @@ class Hik {
     const _url = hikUrl(url, config.params, config.data);
 
     let headers = {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/x-www-form-urlencoded',
       'X-Ca-Key': this.ak,
-      'X-Ca-Timestamp': moment().local(),
+      'X-Ca-Timestamp': moment().valueOf(),
       'X-Ca-Nonce': uuid(true),
     };
     if (config.headers) headers = { ...headers, ...config.headers };
