@@ -92,7 +92,7 @@ class Hik {
   async access_token() {
     const { status, data: { code, msg, data } } = await this.request('POST', '/api/v1/oauth/token');
     console.log('status', status);
-    if (status !== 200) {git
+    if (status !== 200) {
       throw new Error(`服务器出现了故障 status: ${status}`);
     }
     if (status === 200 || code !== '0') {
