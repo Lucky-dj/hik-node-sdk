@@ -53,11 +53,11 @@ class Hik {
     method = method.toUpperCase();
 
     const url = `${this.url}${path}`;
-    const _url = hikUrl(`/artemis${path}`, config.params, config.data);
+    const _url = hikUrl(`/artemis${path}`, config.params);
 
     let headers = {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*',
+      'Content-Type': 'application/json',
       'X-Ca-Key': this.ak,
       'X-Ca-Timestamp': moment().valueOf(),
       'X-Ca-Nonce': uuid(true),
