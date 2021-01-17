@@ -95,7 +95,7 @@ class Hik {
     if (status !== 200) {
       throw new Error(`服务器出现了故障 status: ${status}`);
     }
-    if (status === 200 || code !== '0') {
+    if (status === 200 && code !== '0') {
       throw new Error(`
         API网关返回错误，错误码地址 https://open.hikvision.com/docs/807ffeb51513460197ab0110ae3efcfe
         code: ${code}
