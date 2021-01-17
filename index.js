@@ -53,7 +53,7 @@ class Hik {
     method = method.toUpperCase();
 
     const url = `${this.url}${path}`;
-    const _url = hikUrl(`/artemis/${path}`, config.params, config.data);
+    const _url = hikUrl(`/artemis${path}`, config.params, config.data);
 
     let headers = {
       'Accept': 'application/json, text/plain, */*',
@@ -92,7 +92,7 @@ class Hik {
   async access_token() {
     const { status, data: { code, msg, data } } = await this.request('POST', '/api/v1/oauth/token');
     console.log('status', status);
-    if (status !== 200) {
+    if (status !== 200) {git
       throw new Error(`服务器出现了故障 status: ${status}`);
     }
     if (status === 200 || code !== '0') {
