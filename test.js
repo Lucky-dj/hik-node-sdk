@@ -11,8 +11,6 @@ const hik = require('./index');
     protocol: 'https',
   });
 
-  console.log('Hik', Hik);
-
   const res = await Hik.access_token();
 
   console.log('res', res);
