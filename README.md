@@ -1,6 +1,7 @@
 # hik-node-sdk
 
 海康 Node SDK 版本，非官方，民间制作
+此包只是封装了加签作用
 
 ## 安装
 
@@ -22,7 +23,20 @@ const Hik = new hik({
   protocol: 'https',     // http 和 https
 });
 
+// 可使用参数 GET/POST/PUT/PATCH/DELETE
+const method = 'POST';
+// 请求路径：eg /api/v1/oauth/token
+// 具体请求路径可看 海康开放API
+const path = '/api/v1/oauth/token';
+// 请求参数 config.hearders、config.params、config.data
+const config = {};
 
+// 请求接口
+const { status, data } = await Hik.request(method, path, config)
+
+
+// 获取 access_token
+const { access_token, token_type, expires_in } = await Hik.access_token();
 ```
 
 ## 问题汇总
